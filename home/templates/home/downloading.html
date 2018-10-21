@@ -1,0 +1,191 @@
+<!-- <h1>GUGU</h1> -->
+<!-- 
+<form action="{% url 'home:downloading' %}" method="POST">
+{% csrf_token %}	
+	<input type="submit" value="stop downloading torrent">
+</form>
+<form action="{% url 'home:pause' %}" method="POST">
+{% csrf_token %}	
+	<input type="submit" value="Pause Torrent">
+</form>
+<form action="{% url 'home:play' %}" method="POST">
+{% csrf_token %}	
+	<input type="submit" value="Play Torrent">
+</form> -->
+<!-- Download Percentage-
+<p id="percentage">
+
+</p>
+Total Number Of Peers Right Now
+<p id="peers">
+
+</p> -->
+<style>
+#myProgress {
+  width: 100%;
+  background-color: #ddd;
+}
+
+#myBar {
+  width: 1%;
+  height: 30px;
+  background-color: #4CAF50;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+// $( document ).ready(function() {
+
+	console.log("Script");
+    var width = 0;
+	setInterval(function() {
+        k=parseInt($('#percentage').val());
+        p=$('#percentage').val()
+		console.log(parseInt($('#percentage').val()));
+
+		if(k==99){
+			alert("Download Completed");
+			window.location.href='/home/'
+		}
+        var elem = document.getElementById("myBar");   
+        console.log("k=",k);
+
+        if (width >= 100) {
+          clearInterval(id);
+        } 
+        else {
+          width=p; 
+          console.log("width2=",width);
+          elem.style.width = width + '%'; 
+        }
+
+		// console.log("interval working");
+        $.ajax({
+            type: "GET",
+            url: "{% url 'home:download-percentage' %}",  
+            // data: {'append_increment': append_increment}
+        })
+        .done(function(response) {
+        	console.log(response);
+        	var ar = (response.split(','))
+            $('#percentage').val(ar[0]);
+            $('#peers').val(ar[1]);
+
+            // $('#peers').html(response);
+
+        });
+    }, 1000)
+// });
+</script>
+
+
+<div id="myProgress">
+  <div id="myBar"></div>
+</div>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <title>ApnaTorrent</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="{% static '/gui/images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static '/gui/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static '/gui/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static '/gui/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static '/gui/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static '/gui/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static '/gui/css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/gui/css/main.css' %}">
+<!--===============================================================================================-->
+</head>
+<body>
+
+    <div class="bg-contact3" style="background-image: url({% static '/gui/images/bg-01.jpg' %});">
+        <div class="container-contact3">
+            <div class="wrap-contact3">
+                    <span class="contact3-form-title">
+                        Downloading Your Torrent
+                    </span>
+
+                    <div class="wrap-contact3-form-radio">
+                        <div class="contact3-form-radio m-r-42">
+                            <input class="input-radio3" id="radio1" type="radio" name="choice" value="say-hi" checked="checked">
+                            <label class="label-radio3" for="radio1">
+                                Thanks For Choosing ApnaTorrent
+                            </label>
+                        </div>
+                    </div>
+                <!-- <form  class="contact3-form validate-form"> -->
+                    <div class="wrap-input3 validate-input" data-validate="Name is required">
+                        Download Percentage
+                        <input class="input3" id="percentage" value="" type="text" name="magnet" readonly>
+
+                        <!-- <p id="percentage">
+
+                        </p> -->
+                    </div>
+                    <div class="wrap-input3 validate-input" data-validate="Name is required">
+                        Last Active Number Of Peers
+                        <input class="input3" id="peers" value="" type="text" name="magnet" readonly>
+                       <!--  <p id="peers">
+
+                        </p> -->
+                    </div>
+
+                    <form action="{% url 'home:downloading' %}" method="POST">
+                    {% csrf_token %}   
+                        <button type="submit" class="contact3-form-btn">
+                            Stop Downloading Torrent
+                        </button> 
+                        <!-- <input type="submit" value="stop downloading torrent"> -->
+                    </form>                    
+                
+                
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="dropDownSelect1"></div>
+
+<!-- <script src="{% static 'gui/js/overview.js' %}"></script> -->
+<!--===============================================================================================-->
+    <script src="{% static 'gui/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+    <script src="{% static 'gui/vendor/bootstrap/js/popper.js' %}"></script>
+    <script src="{% static 'gui/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+    <script src="{% static 'gui/vendor/select2/select2.min.js' %}"></script>
+    <script>
+        $(".selection-2").select2({
+            minimumResultsForSearch: 20,
+            dropdownParent: $('#dropDownSelect1')
+        });
+    </script>
+<!--===============================================================================================-->
+    <script src="{% static 'gui/js/main.js' %}"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+</body>
+</html>

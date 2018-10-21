@@ -1,0 +1,89 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load staticfiles %}
+    <title>Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <style>
+        html, body, h1, h2, h3, h4, h5 {
+            font-family: "Raleway", sans-serif;
+        }
+
+        .dashboard-buttons {
+            /*do not removes this, since it is being used in jQuerying*/
+        }
+    </style>
+    {% block head %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.3.min.js" ></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="{% static 'gui/css/residence_Settings.css' %}">
+
+    {% endblock %}
+</head>
+
+<body class="w3-light-grey">
+
+    <!-- Top container -->
+    {% block body %}
+    <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+        <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();">
+            <i class="fa fa-bars"></i>  Dashboard</button>
+        <span class="w3-bar-item w3-left">FTORRENT</span>
+
+        <a href="https://time.is/New_Delhi" id="time_is_link" rel="nofollow" style="font-size:20px; vertical-align: middle;"></a>
+        <span class="w3-bar-item w3-right" id="New_Delhi_z424" style="font-size:20px;"></span>
+    </div>
+
+
+
+    <center>
+				<div class="w3-row-padding" style="padding-top: 10%;">
+					<h5>SELECT FILE TO DOWNLOAD</h5>
+					<table class="table1 highlighted" style="padding-top: 10%; padding-bottom: 10%">
+						<tr>
+												<td width="50%" class="table_data1">Magnet Link</td>
+												<td width="50%" class="table_data2">
+													<input type="text" id="magnetLink" placeholder="Enter Magnet Link Here">
+												</td>
+											</tr>
+											<tr>
+												<td width="50%" class="table_data1">City</td>
+												<td width="50%" class="table_data2">
+													<input type="file">
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" class="table_data2">
+													<center>
+													<br>
+													<button class="w3-button w3-blue w3-border">Start Download</button>
+													<br>
+													</center>
+												</td>
+											</tr>
+					</table>
+				</div>
+			</center>
+            
+                    
+        
+        {% block main %} {% endblock %}
+ 
+    {% endblock %} {% block script %}
+    
+    <script src="//widget.time.is/t.js"></script>
+    <script>
+            time_is_widget.init({ New_Delhi_z424: {} });
+    </script> {% endblock %}
+</body>
+
+</html>

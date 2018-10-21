@@ -1,0 +1,162 @@
+<!-- <h1>GUGU</h1> -->
+<!-- <form action="{% url 'home:home' %}" method="POST" enctype="multipart/form-data">
+{% csrf_token %}	
+	<input type="file" name="file" onchange="fileValidation(this)" required>
+	<input type="submit" value="start downloading torrent">
+</form>
+
+<form action="{% url 'home:magnet-link' %}" method="POST">
+{% csrf_token %}	
+	<input type="text" name="magnet" required>
+	<input type="submit" value="start downloading torrent">
+</form> -->
+<script type="text/javascript">
+	var _validFileExtensions = [".torrent"];    
+	function fileValidation(oInput) {
+    if (oInput.type == "file") {
+        var sFileName = oInput.value;
+         if (sFileName.length > 0) {
+            var blnValid = false;
+            for (var j = 0; j < _validFileExtensions.length; j++) {
+                var sCurExtension = _validFileExtensions[j];
+                if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                    blnValid = true;
+                    break;
+                }
+            }
+             
+            if (!blnValid) {
+                alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+                oInput.value = "";
+                return false;
+            }
+        }
+    }
+    return true;
+}
+</script>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% load staticfiles %}
+	<title>ApnaTorrent</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static '/gui/images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static '/gui/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static '/gui/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static '/gui/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static '/gui/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static '/gui/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static '/gui/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static '/gui/css/main.css' %}">
+<!--===============================================================================================-->
+</head>
+<body>
+
+	<div class="bg-contact3" style="background-image: url({% static '/gui/images/bg-01.jpg' %});">
+		<div class="container-contact3">
+			<div class="wrap-contact3">
+					<span class="contact3-form-title">
+						Download Torrents Better
+					</span>
+
+					<div class="wrap-contact3-form-radio">
+						<div class="contact3-form-radio m-r-42">
+							<input class="input-radio3" id="radio1" type="radio" name="choice" value="say-hi" checked="checked">
+							<label class="label-radio3" for="radio1">
+								Upload Torrent File
+							</label>
+						</div>
+
+						<div class="contact3-form-radio">
+							<input class="input-radio3" id="radio2" type="radio" name="choice" value="get-quote">
+							<label class="label-radio3" for="radio2">
+								Magnet Link
+							</label>
+						</div>
+					</div>
+				<form action="{% url 'home:home' %}" method="POST" enctype="multipart/form-data" class="contact3-form validate-form">
+				{% csrf_token %}
+					<div class="wrap-input3 validate-input" data-validate="Name is required">
+						<input type="file" class="input3" name="file" onchange="fileValidation(this)" required>
+						<!-- <input class="input3" type="text" name="name" placeholder="Your Name"> -->
+					</div>
+					
+					<div class="container-contact3-form-btn">
+						<button type="submit" class="contact3-form-btn">
+							Upload Torrent File
+						</button>
+					</div>
+				</form>
+				<br>
+				<form action="{% url 'home:magnet-link' %}" method="POST" class="contact3-form validate-form">
+				{% csrf_token %}
+					
+					<div class="wrap-input3 input3-select" data-validate="Name is required">
+						<input class="input3" type="text" name="magnet" placeholder="MAGNET LINK">
+					</div>
+
+					
+
+					
+					<div class="container-contact3-form-btn input3-select">
+						<button type="submit" class="contact3-form-btn">
+							Upload Magnet Link
+						</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<div id="dropDownSelect1"></div>
+
+<!-- <script src="{% static 'gui/js/overview.js' %}"></script> -->
+<!--===============================================================================================-->
+	<script src="{% static 'gui/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'gui/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'gui/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'gui/vendor/select2/select2.min.js' %}"></script>
+	<script>
+		$(".selection-2").select2({
+			minimumResultsForSearch: 20,
+			dropdownParent: $('#dropDownSelect1')
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'gui/js/main.js' %}"></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
